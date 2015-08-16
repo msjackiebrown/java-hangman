@@ -1,9 +1,9 @@
+package com.msjackiebrown.hangman;
 import java.util.Scanner;
 
 public class Hangman {
 	
-	private final static String[] words = {"about", "today", "after", "again",
-			"cold", "they","sleep","give", "fast", "please", "down", "for", "him", "her","why", "upon","like"};
+	private static WordList wordlist = new WordList(null);
 	
 	private static String currentWord;
 	
@@ -55,6 +55,8 @@ public class Hangman {
 	}
 	
 	
+
+	
 	public static void refresh()
 	{
 		for (int i=0; i<80; i++)
@@ -65,9 +67,9 @@ public class Hangman {
 	
 	public static void getWord()
 	{
-		int index = (int) (Math.random() * words.length);
+		int index = (int) (Math.random() * wordlist.size());
 		
-		currentWord = words[index];
+		currentWord = wordlist.get(index);
 		
 		mask = new char[currentWord.length()];
 		
