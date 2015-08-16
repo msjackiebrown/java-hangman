@@ -25,9 +25,9 @@ public class WordList extends ArrayList<String> {
 					
 				String word =input.nextLine();
 				
-				System.out.println("Adding " + word);
+				//LOG: System.out.println("Adding " + word);
 				
-				add(word);
+				add(word); 
 				
 			}
 		
