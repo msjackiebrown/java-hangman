@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.msjackiebrown.hangman.HangmanController">
+   <children>
+      <BorderPane prefHeight="768.0" prefWidth="1366.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label fx:id="messageBar" text="YOU ARE HANGED!!!" textFill="#fc0a0a">
+                           <font>
+                              <Font name="MS Gothic" size="52.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label fx:id="maskedWord" depthTest="DISABLE" layoutX="34.0" layoutY="544.0" text="- - - - - - -">
+                           <font>
+                              <Font name="Arial" size="64.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <GridPane fx:id="buttonPane" prefHeight="100.0" prefWidth="600.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleButton" text="A">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#handleButton" text="B" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="C" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="D" GridPane.columnIndex="3">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="E" GridPane.columnIndex="4">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="F" GridPane.columnIndex="5">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="G" GridPane.columnIndex="6">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="H" GridPane.columnIndex="7">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="I" GridPane.columnIndex="8">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="1210.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="J" GridPane.columnIndex="9">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="910.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="K" GridPane.columnIndex="10">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="L" GridPane.columnIndex="11">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="M" GridPane.columnIndex="12">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="1010.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="N" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="510.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="O" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="P" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="1210.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="Q" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="210.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="R" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="1110.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="S" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="810.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="T" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="910.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="U" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="410.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="V" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="610.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="X" GridPane.columnIndex="10" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="Y" GridPane.columnIndex="11" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button layoutX="110.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButton" text="Z" GridPane.columnIndex="12" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#handleButton" text="W" GridPane.columnIndex="9" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Comic Sans MS Bold" size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Button>
+                           </children>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </bottom>
+         <center>
+            <Pane disable="true" prefHeight="502.0" prefWidth="1053.0">
+               <children>
+                  <Line endX="100.0" endY="50.0" startX="100.0" />
+                  <Line endX="360.0" startX="100.0" />
+                  <Line endX="360.0" startX="360.0" startY="467.0" />
+                  <Line endX="720.0" endY="467.0" startY="467.0" />
+                  <Circle fx:id="head" fill="DODGERBLUE" layoutX="100.0" layoutY="81.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Line fx:id="arm1" endX="70.0" endY="150.0" layoutX="19.0" layoutY="10.0" rotate="153.4" startX="40.0" startY="100.0" />
+                  <Line fx:id="arm2" endX="130.0" endY="10.0" layoutX="1.0" layoutY="98.0" rotate="21.3" startX="105.0" startY="60.0" />
+                  <Line fx:id="body" endX="70.0" endY="250.0" layoutX="29.0" layoutY="20.0" startX="70.0" startY="90.0" />
+                  <Line fx:id="leg2" endX="130.0" endY="200.0" layoutX="11.0" layoutY="115.0" startX="85.0" startY="150.0" />
+                  <Line fx:id="leg1" endX="50.0" endY="200.0" layoutX="21.0" layoutY="121.0" startX="80.0" startY="150.0" />
+               </children>
+               <BorderPane.margin>
+                  <Insets left="300.0" top="10.0" />
+               </BorderPane.margin>
+            </Pane>
+         </center>
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#startGame" text="New Game" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <left>
+            <Label fx:id="missedBar" text="Times Missed:" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

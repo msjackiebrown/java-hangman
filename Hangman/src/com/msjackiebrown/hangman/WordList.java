@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class WordList extends ArrayList<String> {
 	
+
 	public WordList(File filelocation) 
 	{
 		
@@ -14,7 +15,7 @@ public class WordList extends ArrayList<String> {
 		
 		Scanner input = null;
 		try {
-			input = new Scanner(new File("wordlist.txt"));
+			input = new Scanner(new File("spellingwordsU1W1.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,6 +34,15 @@ public class WordList extends ArrayList<String> {
 		
 		input.close();
 	
+		
+	}
+
+	public String getRandomWord() {
+		
+		int index = (int) (Math.random() * size());
+		
+		return get(index);
+		
 		
 	}
 
