@@ -15,7 +15,7 @@ public class WordList extends ArrayList<String> {
 		
 		Scanner input = null;
 		try {
-			input = new Scanner(new File("spellingwordsU1W1.txt"));
+			input = new Scanner(new File("wordlist.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

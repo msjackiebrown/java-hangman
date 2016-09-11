@@ -1,6 +1,7 @@
 package com.msjackiebrown.hangman;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -9,9 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -82,6 +85,29 @@ public class HangmanController implements Initializable {
 	{
 		missedBar.setText("Times Missed: " + numberMisses);
 		maskedWord.setText(new String(mask));
+		updateHangman();
+	}
+	
+	private void initView()
+	{
+		//ClearHangman
+		arm1.setVisible(false);
+		head.setVisible(false);
+		body.setVisible(false);
+		arm2.setVisible(false);
+		leg1.setVisible(false);
+		leg2.setVisible(false);
+		
+		ObservableList<Node> buttons = buttonPane.getChildren();
+		for (int i=0; i<buttons.size(); i++)
+		{
+			 Button temp = ((Button) buttons.get(i));
+			 temp.setTextFill(Color.BLACK);
+			 temp.setDisable(false);
+		}
+		messageBar.setTextFill(Color.BLACK);
+		messageBar.setText("(Guess) Enter a letter in the word");
+		maskedWord.setText(new String(mask));
 	}
 		
 	public  void checkAnswer()
@@ -142,6 +168,7 @@ public class HangmanController implements Initializable {
 		
 		if( Arrays.equals(currentWord.toCharArray(), mask))
 			{
+			messageBar.setTextFill(Color.GREEN);
 			messageBar.setText("YOU ARE SAVED!");
 			return true;
 			}
@@ -157,7 +184,9 @@ public class HangmanController implements Initializable {
 	{
 		if (numberMisses>6)
 		{
+			messageBar.setTextFill(Color.RED);
 			messageBar.setText("YOU ARE HANGED! The word was " + currentWord);
+	
 			return true;
 		}
 		
@@ -174,6 +203,28 @@ public class HangmanController implements Initializable {
 	}
 	
 
+	public void showConfirmationDialog()
+	{
+		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setContentText("Do you want to play again?");
+
+		ButtonType buttonTypeOne = new ButtonType("Yes");
+		ButtonType buttonTypeTwo = new ButtonType("No");
+
+		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == buttonTypeOne){
+		   startGame();
+		} else {
+			
+			System.exit(0);
+		}
+		  
+	}
+	
 	@FXML
 	public void handleButton(ActionEvent e)
 	{
@@ -185,7 +236,7 @@ public class HangmanController implements Initializable {
 		
 		if(isWinner() || isLoser())
 		{
-			System.out.println("show confirm Dialog");
+			showConfirmationDialog();
 		}
 
 	}
@@ -195,24 +246,6 @@ public class HangmanController implements Initializable {
 	{
 		
 		initModel();
-		
-		
-		//ClearHangman
-		arm1.setVisible(false);
-		head.setVisible(false);
-		body.setVisible(false);
-		arm2.setVisible(false);
-		leg1.setVisible(false);
-		leg2.setVisible(false);
-		
-		ObservableList<Node> buttons = buttonPane.getChildren();
-		for (int i=0; i<buttons.size(); i++)
-		{
-			 Button temp = ((Button) buttons.get(i));
-			 temp.setTextFill(Color.BLACK);
-			 temp.setDisable(false);
-		}
-		messageBar.setText("(Guess) Enter a letter in the word");
-		updateView();
+		initView();
 	}
 }
