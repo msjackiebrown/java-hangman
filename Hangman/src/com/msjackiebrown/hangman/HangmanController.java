@@ -1,38 +1,40 @@
 package com.msjackiebrown.hangman;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.msjackiebrown.hangman.model.Game;
+import com.msjackiebrown.hangman.model.WordList;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.stage.Stage;
 
 public class HangmanController implements Initializable {
 	
-	private static WordList wordlist = new WordList(null);
+	
+	private Logger logger = LogManager.getLogger(HangmanController.class);
+	
+	private Game game;
 	
 	@FXML
 	Label messageBar;
-	
+
 	@FXML
 	Label missedBar;
 	
@@ -62,35 +64,13 @@ public class HangmanController implements Initializable {
 	
 
 	private Button selected;
-	
-	private static String currentWord;
-	
-	private static char[] mask;
-	
-	private static String guess;
 
-	private static int numberMisses;
-	
-	public void initModel()
-	{
-		numberMisses=0;
-		currentWord = wordlist.getRandomWord();
-		
-		mask = new char[currentWord.length()];
-		
-		for (int count=0; count<mask.length; count++)
-		{
-			mask[count]='-';
-		}
-		
-		
-		
-	}
+	private WordList wordList = new WordList("wordlist.txt");
 	
 	public void updateView()
 	{
-		missedBar.setText("Times Missed: " + numberMisses);
-		maskedWord.setText(new String(mask));
+		missedBar.setText("Times Missed: " + game.getNumberMisses());
+		maskedWord.setText(game.getMask());
 		updateHangman();
 	}
 	
@@ -113,31 +93,24 @@ public class HangmanController implements Initializable {
 		}
 		messageBar.setTextFill(Color.BLACK);
 		messageBar.setText("(Guess) Enter a letter in the word");
-		maskedWord.setText(new String(mask));
+		maskedWord.setText(game.getMask());
+		missedBar.setText("Times Missed: " +  game.getNumberMisses());
 	}
 		
-	public  void checkAnswer()
+	
+	public void checkAnswer()
 	{
 		
-			if (currentWord.contains(guess))
+			if (game.checkGuess(selected.getText()))
 			{ 
 
 				selected.setTextFill(Color.GREEN);
-				//Uncover letters
-				int index = currentWord.indexOf(guess); //Get first occurrence
-				do
-				{
-					System.out.println(index);
-					System.out.println(currentWord.lastIndexOf(guess));
-					mask[index]=guess.charAt(0);
-					index = currentWord.indexOf(guess, index+1); //Get next occurrence
-					
-				}while(index!=-1); 
+				
 			}
 			else
 			{
 				selected.setTextFill(Color.RED);
-				numberMisses+=1;
+				game.updateMisses();
 				updateHangman();
 			}
 		}
@@ -145,7 +118,7 @@ public class HangmanController implements Initializable {
 	private void updateHangman() {
 
 
-		switch(numberMisses)
+		switch(game.getNumberMisses())
 		{
 		case 1:
 			head.setVisible(true);
@@ -169,46 +142,66 @@ public class HangmanController implements Initializable {
 		
 	}
 
-	public boolean isWinner()
-	{
-		
-		if( Arrays.equals(currentWord.toCharArray(), mask))
-			{
-			messageBar.setTextFill(Color.GREEN);
-			messageBar.setText("YOU ARE SAVED!");
-			return true;
-			}
-			
-	   else
-			{
-				return false;
-			}
-		
-	}
-
-	public boolean isLoser()
-	{
-		if (numberMisses>6)
-		{
-			messageBar.setTextFill(Color.RED);
-			messageBar.setText("YOU ARE HANGED! The word was " + currentWord);
 	
-			return true;
-		}
-		
-		else
-		{
-			return false;
-		}
-	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
 		startGame();	
 	}
 	
 
+	public void showCloseConfirmationDialog()
+	{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setContentText("Are you sure you want to quit? You will lose any unsaved progress.");
+
+		ButtonType buttonTypeOne = new ButtonType("Yes");
+		ButtonType buttonTypeTwo = new ButtonType("No");
+
+		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == buttonTypeOne){
+		   System.exit(0);
+		} else {
+			
+			alert.close();
+			return;
+		}
+	}
+	
+	public void showAboutDialog()
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information Dialog");
+		alert.setHeaderText("FEATURE NOT YET IMPLEMENTED");
+		alert.setContentText("This feature has not yet beem implemented into the program. Sorry for the inconvience.");
+
+		alert.showAndWait();
+	}
+	
+	public void showNewGameDialog()
+	{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setContentText("Are you sure you wish to start a new game?  You will lose any unsaved progress");
+
+		ButtonType buttonTypeOne = new ButtonType("Yes");
+		ButtonType buttonTypeTwo = new ButtonType("No");
+
+		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == buttonTypeOne){
+		   startGame();
+		} else {
+			
+			alert.close();
+			return;
+		}
+	}
+	
 	public void showConfirmationDialog()
 	{
 		
@@ -231,43 +224,78 @@ public class HangmanController implements Initializable {
 		  
 	}
 	
-	
 	@FXML
 	public void showWordListDialog() throws IOException
 	{
-		BorderPane wordListDialog = (BorderPane)FXMLLoader.load(getClass().getResource("WordList.fxml"));
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information Dialog");
+		alert.setHeaderText("FEATURE NOT YET IMPLEMENTED");
+		alert.setContentText("This feature has not yet beem implemented into the program. Sorry for the inconvience.");
+
+		alert.showAndWait();
 		
-		Stage stage = new Stage();
-		Scene scene = new Scene(wordListDialog);
-		
-		stage.setScene(scene);
-		stage.setTitle("WordList Manager");
-		stage.sizeToScene();	
-		stage.showAndWait();
+//		BorderPane wordListDialog = (BorderPane)FXMLLoader.load(getClass().getResource("WordList.fxml"));
+//		
+//		Stage stage = new Stage();
+//		Scene scene = new Scene(wordListDialog);
+//		
+//		stage.setScene(scene);
+//		stage.setTitle("WordList Manager");
+//		stage.sizeToScene();	
+//		stage.showAndWait();
 		
 	}
 	
 	@FXML
 	public void handleButton(ActionEvent e)
 	{
-		selected = (Button) e.getSource();
-		guess = selected.getText().toLowerCase();
+		selected = (Button) e.getSource();	
+		String guess = selected.getText().toLowerCase();
+		logger.debug("Guessed Letter: " + guess);
 		selected.setDisable(true);
-		checkAnswer();
-		updateView();
 		
-		if(isWinner() || isLoser())
+		if (game.checkGuess(guess))
+			{
+				selected.setTextFill(Color.DARKGREEN);
+			}
+		else
 		{
-			showConfirmationDialog();
+			selected.setTextFill(Color.DARKRED);
 		}
+		updateView();
+		checkForWinLose();
 
 	}
 
+	private void checkForWinLose()
+	{
+	
+		if(game.isWinner()) 
+		{
+			messageBar.setTextFill(Color.GREEN);
+			messageBar.setText("YOU ARE SAVED!");
+			
+			showConfirmationDialog();
+		}
+		
+		if (game.isLoser())
+		{
+			messageBar.setTextFill(Color.RED);
+			messageBar.setText("YOU ARE HANGED!\nTHE WORD WAS " + game.getCurrentWord());
+			
+			showConfirmationDialog();
+		}
+	}
+	
 	@FXML
 	public void startGame()
 	{
 		
-		initModel();
+		logger.debug("Initializing game....");
+		game = new Game(wordList.getWords());
 		initView();
+		logger.debug("Game initialized.");
+		logger.debug("Current word: " + game.getCurrentWord());
 	}
+
 }
