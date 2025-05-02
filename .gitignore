@@ -1,0 +1,59 @@
+# Compiled Java classes and build directories
+*.class
+/bin/
+/target/
+/build/
+
+# Log files and logging directories
+*.log
+/logs/
+
+# IDE specific files and directories
+## Eclipse
+.settings/
+.classpath
+.project
+.metadata/
+
+## VSCode
+.vscode/
+*.code-workspace
+
+## IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Package and Archive Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Java specific
+hs_err_pid*
+replay_pid*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*~
+*.bak
+*.swp
+*.swo
+
+# Project specific
+wordlists/*.txt
+!wordlists/default.txt
